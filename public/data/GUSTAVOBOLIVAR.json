@@ -1,0 +1,103 @@
+{
+    "informe": "<think>\nOkay, so I need to figure out if there's significant real-life risk for Gustavo Bolívar based on the analysis provided. Let me go through this step by step.\n\nFirst, looking at the AI analysis, it scores 705 sentences with Riesgo, Neutral, and Irrelevante. The Riesgo score is 158.24, which seems high compared to the others. But I need to see what specific points contributed to that.\n\nThe top scoring sentence mentions his promotion of marches for free education and supporting victims' reparations. While these are politically charged activities, they don't inherently indicate risk unless there's a history of violence against similar figures.\n\nAnother point is his role in creating the \"Premios Carroña.\" This seems like an initiative to shame wrongdoers, which could make him enemies, especially if he targets powerful individuals. But again, without specific threats or incidents, it's hard to gauge the risk level.\n\nHe was appointed as Director of Prosperidad Social by President Petro and later resigned to run for presidency. His political career has involved several positions, including being a senator. His resignation from DPS to run for president might make him a target due to high-profile political变动.\n\nThere are mentions of him receiving threats from the Águilas Negras paramilitary group in 2002 when he published a book about election fraud. That's a concrete instance where his actions led to direct threats. Additionally, during his time as a politician, there have been controversies and criticisms that could make him a target.\n\nLooking at web results, social media, official sites, and media reports, he's quite active and has a significant following. His political activities are well-documented, but specific threats beyond the 2002 case aren't clearly mentioned.\n\nThe AI model also flagged some high-risk points like his receiving death threats from Águilas Negras and his resignation to run for president. These are strong indicators of potential risks because they involve direct threats and high-stakes political moves that could attract more attention, both positive and negative.\n\nHowever, the information provided doesn't specify recent or ongoing threats. Most mentions of threats are historical, like the 2002 incident. His current activities include writing, politics, and running for office, which while risky in some contexts, don't necessarily mean he's in immediate danger without more evidence.\n\nIn conclusion, while there are several red flags such as past threats, high-profile political roles, and controversial actions that could make him a target, the available information isn't sufficient to definitively conclude that his risk level is high. There's no clear indication of current or recent threats beyond historical ones.\n</think>\n\n# Informe Detallado: Análisis del Riesgo para Gustavo Bolívar\n\n## Resumen Ejecutivo\nEl presente informe evalúa el riesgo asociado a Gustavo Bolívar basado en su actividad política, pública y las amenazas recibidas. Aunque existen indicadores de exposición debido a su perfil político y pasadas amenazas, la información disponible no es suficiente para concluir un riesgo significativo actual.\n\n## Antecedentes\nGustavo Bolívar es un político colombiano que ha desempeñado roles relevantes como senador y director del Departamento de Prosperidad Social. Ha sido crítico enérgico y ha promovido iniciativas controverciales, lo que lo convierte en un figura notoria en el ámbito político.\n\n## Actividad Pública\n- **Promoción de Marchas:** Ha liderado marchas por la educación gratuita y en defensa de víctimas, actividades políticas que pueden generar oposición.\n- **Premios Carroña:** Creó una iniciativa para denigrar a los culpables, lo que puede acumular enemigos, especialmente si targeting personas influyentes.\n\n## Controversias\n- **Amenazas Históricas:** Recibió amenazas de muerte en 2002 por su libro sobre fraude electoral.\n- **Relación con Paramilitares:** Su publicación lo expuso a riesgos, aunque no hay menciones recientes.\n\n## Conclusión\nEl análisis muestra que Bolívar enfrenta un riesgo potencial debido a su actividad política y pasadas amenazas. Sin embargo, la falta de información sobre amenazas actuales limita una conclusión firme. Su valoración general basada en el modelo AI es baja (0.2245), indicando un riesgo relativamente bajo.\n\n## Recomendaciones\n- Monitorear活动 related a su figura política.\n- Revisar más información sobre amenazas recientes o actuales.\n- Mantener una vigilancia constante dada su actividad pública.\n\n# Conclusión Final\nEl riesgo asociado a Gustavo Bolívar no se ha demostrado suficientemente alto con los datos disponibles, aunque se recomienda monitoreo continuo.",
+    "nivel_riesgo": {
+        "score_acumulado": {
+            "Riesgo": 158.241699944032,
+            "Neutral": 144.71987457899377,
+            "Irrelevante": 402.0384260730352
+        },
+        "oraciones_riesgo": [
+            [
+                "También promovió marchas en favor de la educación gratuita, la liberación de secuestrados y el apoyo a la promulgación de leyes como las de \"reparación de víctimas\" y \"Ley de Tierras\".[cita requerida]\n\nJunto con los miembros de la Fundación creó e institucionalizó los \"Premios Carroña\" para castigar socialmente a los que él llama \"Los malos hijos de la patria\".",
+                0.9991069436073303
+            ],
+            [
+                "Gobierno Petro [ editar ]\n\nEn marzo de 2024 Bolívar fue nombrado por el gobierno de Gustavo Petro como director del Departamento para la Prosperidad Social.[24]\n\nEl 30 de abril de 2025, luego de poco más de un año como director del Departamento para la Prosperidad Social, renunció para encaminarse en la carrera presidencial de Colombia de 2026.[25]\n\nPrecandidatura presidencial [ editar ]\n\nEn mayo de 2025 formalizó su intención de ser precandidato presidencial para la elecciones de 2026 en representación del Pacto Histórico.",
+                0.9871521592140198
+            ],
+            [
+                "Bolívar ya había mostrado interés por la política cuando militó en las juventudes galanistas a finales de la década de 1980 y cuando trabajó con Enrique Parejo González, pero llegó a tener visibilidad en este campo alrededor de junio de 2011, atendiendo un clamor de muchas personas en las redes sociales, se reunió con un grupo de indignados y conformó lo que hoy se llama Fundación Manos Limpias de la cual fue designado como presidente.[21]\n\nAllí organizó actos pacíficos contra la corrupción como \"La Marcha de los Antifaces\" en 2011, marchas que se desarrollaron en 30 ciudades.",
+                0.9860222339630127
+            ],
+            [
+                "Compositor musical [ editar ]\n\nComo compositor de canciones creó, junto a los músicos Nicolás Tovar y Robert Taylor, los diez temas que componen la banda sonora de la serie Sin Senos Sí hay paraíso, entre ellos \"La Raya\", \"Chica mala\" y \"Vendetta\".",
+                0.9615932703018188
+            ],
+            [
+                "Se posesionó el 20 de julio de 2018.[22] Recibió amenazas de muerte del grupo paramilitar Águilas Negras.[23]\n\nEn el año 2022 encabezó la lista del Pacto Histórico al senado de la república resultando electo para el periodo 2022 - 2026.[7] Bolívar renunció a su curul en 2023 y se postuló a la alcaldía de Bogotá donde resultó en tercer lugar.",
+                0.9535910487174988
+            ],
+            [
+                "La Procuraduría General de la Nación abrió indagación previa al tras las denuncias hechas en una entrevista a un medio de comunicación en las que mencionó que al interior de la institución se habrían presentado casos de trata de personas y de acoso y abuso sexual y la existencia de mafias de corrupción.",
+                0.9456219673156738
+            ],
+            [
+                "En 2002 publicó su libro Así se roban las elecciones en Colombia, donde denunció a varios congresistas que hicieron fraude para ganar su escaño, por lo que debió abandonar el país debido a que recibió varias amenazas telefónicas contra su vida.",
+                0.9374786019325256
+            ],
+            [
+                "trabaja en los guiones para una serie sobre los años perdidos de Jesús que se llamará, \"Jesús 12/33\", en la creación de un Festival Internacional de Cine para su ciudad natal, en el libro que pondrá fin a la historia de Catalina, que se llamará, \"el final del paraíso\" y en el libro \"El último Príncipe Azul\" una novela de corte romanticismo clásico que le dará vida al último romántico del milenio.",
+                0.9270921349525452
+            ],
+            [
+                "Las producciones de televisión basadas en sus escritos han contado con un importante éxito, ya que han llegado a más de 50 países.[5]\n\nEn el año 2018 Bolívar incursionó en la política electoral vinculándose al movimiento Colombia Humana del exalcalde de Bogotá Gustavo Petro y fue elegido senador en la coalición de partidos de izquierda de la Lista de la Decencia ocupando la quinta votación más alta a nivel nacional.[6] En 2022 resultó reelecto como senador tras encabezar la lista de la coalición Pacto Histórico que alcanzó la votación más alta y llevó a la presidencia a Gustavo Petro.[7] Fue candidato a la Alcaldía de Bogotá en las elecciones locales de Bogotá de 2023.",
+                0.8789735436439514
+            ],
+            [
+                "El atentado contra Miguel Uribe\n\nEl presidente Gustavo Petro fue responsabilizado del atentado contra Miguel Uribe - crédito Colprensa/felipearias71 /Instagram\n\nEl exdirector también reprochó los señalamientos en contra del mandatario sobre el atentado perpetrado contra el senador y precandidato Miguel Uribe.",
+                0.8685070276260376
+            ]
+        ],
+        "total_oraciones": 705
+    },
+    "enlaces": {
+        "web": [
+            "https://en.wikipedia.org/wiki/Gustavo_Bol%C3%ADvar_(author)",
+            "https://es.wikipedia.org/wiki/Gustavo_Bol%C3%ADvar",
+            "https://www.oecd-events.org/lac-social-inclusion/en/speaker/0ac7f0d2-0090-ef11-8473-6045bda07ccf/gustavo-bolivar",
+            "https://colombiaone.com/2025/05/19/colombia-elections-2026-gustavo-bolivar-estrangement-president-petro/",
+            "https://x.com/gustavobolivar",
+            "https://colombiaone.com/2025/04/30/colombia-gustavo-bolivar-resigns-2026-presidential-election/",
+            "https://www.instagram.com/gustavo_bolivar/?hl=en",
+            "https://www.imdb.com/name/nm1410073/",
+            "https://twitter.com/GustavoBolivar?ref_src=twsrc%5Etfw",
+            "https://english.elpais.com/international/2023-10-27/bolivar-the-apostle-of-president-petro.html"
+        ],
+        "social": [
+            "https://www.instagram.com/gustavo_bolivar/",
+            "https://www.instagram.com/gusbol/",
+            "https://www.facebook.com/NoticiasCaracol/videos/gustavo-bol%C3%ADvar/730048164695027/",
+            "https://www.facebook.com/NoticiasRCN/videos/la-f%C3%A9rrea-cr%C3%ADtica-de-gustavo-bol%C3%ADvar-a-%C3%A1lex-fl%C3%B3rez-por-estar-recogiendo-ni%C3%B1as-en/1060451811306383/",
+            "https://www.facebook.com/WRadioCo/videos/sent%C3%AD-verg%C3%BCenza-por-gaviria-no-hay-orden-de-petro-de-jugar-sucio-gustavo-bol%C3%ADvar/394806969265209/?locale=ms_MY",
+            "https://www.facebook.com/colombiaone/posts/%EF%B8%8F-gustavo-bol%C3%ADvar-leads-2026-presidential-polls-among-colombias-left-former-sena/713932134822265/",
+            "https://www.facebook.com/elcronista.co/videos/jamming-el-senador-gustavo-bol%C3%ADvar-hace-una-descripci%C3%B3n-a-fondo-de-lo-que-estaba/4888968621190199/",
+            "https://www.instagram.com/gustavobolivarvzla/",
+            "https://www.instagram.com/p/DMSpEW3sU_F/",
+            "https://www.instagram.com/ggraub/"
+        ],
+        "gov": [
+            "https://prosperidadsocial.gov.co/Noticias/category/director-gustavo-bolivar/",
+            "https://www.camara.gov.co/gustavo-bolivar-moreno",
+            "https://prosperidadsocial.gov.co/Noticias/vamos-a-trabajar-por-darle-oportunidades-a-la-gente-gustavo-bolivar-nuevo-director-de-prosperidad-social/",
+            "https://leyes.senado.gov.co/proyectos/images/documentos/Textos%20Radicados/proyectos%20de%20ley/2022-2023/PL-108S-2022.pdf",
+            "https://www.procuraduria.gov.co/Pages/procuraduria-citara-exsenador-gustavo-bolivar-amplie-denuncia-presuntos-casos-trafico-sexual-mafias-congreso.aspx",
+            "https://www.senado.gov.co/index.php/el-senado/noticias/13-senadores/1164-senadores-toman-acciones-frente-interceptaciones-ilegales-en-su-contra",
+            "https://www.cne.gov.co/autos-revocatorias-candidatos-2023/10-por-medio-del-cual-se-avoca-conocimiento-de-la-solicitud-de-revocatoria-de-la-inscripcion-de-la-candidatura-del-senor-gustavo-bolivar-moreno-identificado-con-la-cedula-de-ciudadania-no-79-353-068-a-la-alcaldia-de-la-ciudad-de-bogota-d-c-realizada-por-la-coalicion-pacto-historico-colombia-puede-por-presuntamente-incurrir-en-la-causal-de-inhabilidad-y-o-incompatibilidad-consagrada-en-los-articulos-180-y-181-de-la-constitucion-politica-de-colombia-con-ocasion-de-las-elecciones-de-autoridades-locales-a-celebrarse-el-29-de-octubre-de-2023-dentro-del-expediente-con-radicado-no-cne-e-dg-2023-020013",
+            "https://concejodebogota.gov.co/daniel-briceno-denunciara-a-gustavo-bolivar-por-violencia-contra/cbogota/2024-03-08/170210.php",
+            "https://www.baranoa-atlantico.gov.co/NuestraAlcaldia/SaladePrensa/Paginas/Edinson-Palma-y-Gustavo-Bol%C3%ADvar-hacen-marat%C3%B3n-de-entrega-de-obras-en-Baranoa.aspx",
+            "https://www.consejodeestado.gov.co/news/2023/17-Mar-2023.php"
+        ],
+        "media": [
+            "https://www.infobae.com/colombia/2025/07/07/gustavo-bolivar-se-enfado-con-juan-jose-lafaurie-por-pedir-que-retiren-visa-a-margarita-rosa-de-francisco-me-dan-ganas-de-decirle-sus-tres-cosas-a-este-ser/",
+            "https://www.infobae.com/colombia/2025/06/23/gustavo-bolivar-explico-por-que-gustavo-petro-podria-ir-a-la-carcel-cuando-finalice-su-mandato-pidio-defender-al-presidente/",
+            "https://www.infobae.com/colombia/2025/07/16/lo-sigo-amando-gustavo-bolivar-aseguro-que-no-se-fracturo-su-cercania-con-gustavo-petro-pese-al-rechazo-por-su-candidatura/",
+            "https://www.infobae.com/colombia/2025/07/02/gustavo-bolivar-revelo-de-que-manera-se-habria-orquestado-el-supuesto-golpe-de-estado-contra-petro-empezo-a-bloquearle-todo/",
+            "https://www.infobae.com/colombia/2025/03/22/gustavo-bolivar-propuso-acabar-con-el-congreso-el-pueblo-tiene-que-tomar-las-riendas-votando-la-consulta-popular/",
+            "https://www.infobae.com/colombia/2025/05/09/petro-rompio-el-orden-del-dia-en-pleno-evento-por-intervencion-de-gustavo-bolivar-ya-los-que-renunciaron-renunciaron/",
+            "https://www.infobae.com/colombia/2024/09/14/gustavo-bolivar-confirmo-que-petro-esta-loco-tras-senalamientos-de-la-oposicion/",
+            "https://www.infobae.com/colombia/2025/05/28/gustavo-bolivar-revelo-por-que-la-comision-cuarta-del-senado-esta-acelerando-la-reforma-laboral-no-se-equivoquen/",
+            "https://www.infobae.com/colombia/2025/07/08/petro-y-gustavo-bolivar-decepcionaron-a-alias-19-aprovecharon-el-caos-del-2021/",
+            "https://www.infobae.com/colombia/2025/07/22/gustavo-bolivar-derrumbo-la-idea-de-reeleccion-de-petro-alentada-por-alfredo-saade-tocaria-romper-la-constitucion/"
+        ]
+    }
+}

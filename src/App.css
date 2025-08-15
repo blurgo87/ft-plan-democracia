@@ -40,3 +40,102 @@
 .read-the-docs {
   color: #888;
 }
+
+
+--------
+
+/* Afinado visual "IA-like": foco en input grande y tarjeta centrada */
+:root {
+  --brand-bg: #f8fafc;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  background: var(--brand-bg);
+}
+
+.card {
+  border-radius: 1rem;
+}
+
+.input-group-text {
+  background: #fff;
+}
+
+@media (min-width: 992px) {
+  .card-body {
+    padding: 3rem;
+  }
+}
+
+
+
+---------
+/* === Botones grises (sobrescribe variables Bootstrap) === */
+
+/* Primario en gris (útil si cambias btn-dark por btn-primary) */
+.btn-primary {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #6c757d;              /* gris medio */
+  --bs-btn-border-color: #6c757d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #5c636a;        /* gris + oscuro */
+  --bs-btn-hover-border-color: #565e64;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #4f565c;       /* aún más oscuro */
+  --bs-btn-active-border-color: #4a5156;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #adb5bd;     /* gris claro */
+  --bs-btn-disabled-border-color: #adb5bd;
+}
+
+/* Dark en gris oscuro (el submit actual usa btn-dark) */
+.btn-dark {
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #495057;              /* gris oscuro */
+  --bs-btn-border-color: #495057;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #3f464c;        /* hover más oscuro */
+  --bs-btn-hover-border-color: #3a4046;
+  --bs-btn-focus-shadow-rgb: 73, 80, 87;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #363c41;
+  --bs-btn-active-border-color: #343a40;
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #6c757d;
+  --bs-btn-disabled-border-color: #6c757d;
+}
+
+/* Outline primario en gris (ya lo tenías, lo dejo completo por claridad) */
+.btn-outline-primary {
+  --bs-btn-color: #6c757d;
+  --bs-btn-border-color: #6c757d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6c757d;
+  --bs-btn-hover-border-color: #6c757d;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #5c636a;
+  --bs-btn-active-border-color: #565e64;
+  --bs-btn-disabled-color: #adb5bd;
+  --bs-btn-disabled-bg: transparent;
+  --bs-btn-disabled-border-color: #adb5bd;
+}
+
+/* Barra de progreso en gris */
+.progress-bar {
+  --bs-progress-bar-bg: #6c757d;
+}
+
+/* Input focus gris suave */
+.form-control {
+  border-color: #ced4da;
+}
+.form-control:focus {
+  border-color: #adb5bd;
+  box-shadow: 0 0 0 0.25rem rgba(108, 117, 125, 0.25);
+}
