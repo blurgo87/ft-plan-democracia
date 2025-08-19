@@ -1,9 +1,16 @@
+/* ====== Base (existente) ====== */
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #213547;
   background-color: #ffffff;
+
+  /* ====== UNP Design Tokens ====== */
+  --unp-primary: #7bd5fe;
+  --unp-primary-600: #5fcafb; /* hover */
+  --unp-primary-700: #3fbdf8; /* active */
+  --unp-focus-ring: rgba(123, 213, 254, 0.35);
 }
 
 a { font-weight: 500; color: #646cff; text-decoration: none; }
@@ -14,7 +21,7 @@ body {
   /* IMPORTANTE: NO usar display:flex/place-items aquí; Bootstrap manejará el layout */
   min-width: 320px;
   min-height: 100vh;
-  background-color: #f8fafc;
+  background-color: #ffffff;
 }
 
 h1 { font-size: 3.2em; line-height: 1.1; }
@@ -26,7 +33,135 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  transition: border-color 0.25s;
+  transition: border-color 0.25s, box-shadow 0.12s, transform 0.12s;
 }
-button:hover { border-color: #646cff; }
+button:hover { border-color: var(--unp-primary); }
 button:focus, button:focus-visible { outline: 4px auto -webkit-focus-ring-color; }
+
+/* ====== Input: Nombre y Apellidos ====== */
+/* Borde y halo al enfocar */
+#nombreApellidos.form-control:focus,
+#nombreApellidos.form-control:focus-visible {
+  border-color: var(--unp-primary) !important;
+  box-shadow: 0 0 0 0.25rem var(--unp-focus-ring) !important;
+  outline: none;
+  caret-color: var(--unp-primary);
+}
+
+/* Estado hover (cuando no está enfocado) */
+#nombreApellidos.form-control:hover {
+  border-color: var(--unp-primary);
+}
+
+/* Placeholder más sutil y coherente */
+#nombreApellidos::placeholder {
+  color: #8aa6b3;
+  opacity: 1; /* Safari */
+}
+
+/* Label asociado */
+label[for="nombreApellidos"] {
+  color: #2b2f32;
+  font-weight: 600;
+}
+
+/* ====== Botón UNP (para addons, CTAs, etc.) ====== */
+.btn-unp {
+  background-color: var(--unp-primary) !important;
+  color: #ffffff !important;
+  border: 0 !important;
+  transition: transform 120ms ease, background-color 120ms ease, box-shadow 120ms ease;
+}
+
+.btn-unp:hover:not(:disabled) {
+  background-color: var(--unp-primary-600) !important;
+  transform: translateY(-1px);
+}
+
+.btn-unp:active:not(:disabled) {
+  background-color: var(--unp-primary-700) !important;
+  transform: translateY(0);
+}
+
+.btn-unp:focus-visible {
+  box-shadow: 0 0 0 0.25rem var(--unp-focus-ring) !important;
+}
+
+.btn-unp:disabled,
+.btn-unp[disabled] {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Mantener contraste del spinner dentro del botón */
+.btn-unp .spinner-border {
+  color: #fff !important;
+}
+
+/* Input group cohesivo: neutraliza separación visual si NameInput usa input-group */
+.input-group > .form-control:focus + .btn-unp,
+.input-group .btn-unp:focus-visible {
+  box-shadow: 0 0 0 0.25rem var(--unp-focus-ring) !important;
+}
+
+/* separa botón del input */
+.input-group .form-control {
+  border-top-right-radius: 0.5rem !important;
+  border-bottom-right-radius: 0.5rem !important;
+}
+
+.input-group .btn-unp {
+  margin-left: 0.5rem; /* agrega espacio entre input y botón */
+  border-radius: 0.5rem !important; /* bordes uniformes */
+}
+
+/* Contenedor scrolleable del informe (utilizado por MarkdownTypeReveal) */
+.mdreveal-scrollbox {
+  scroll-behavior: auto;          /* sin suavizado para no “rebotar” por carácter */
+  overscroll-behavior: contain;   /* evita desplazamientos padres */
+}
+
+/* (Opcional) Si usas caret visual, aquí podrías añadir estilos */
+.typing-caret {
+  display: inline-block;
+  margin-left: 2px;
+  animation: caretBlink 1s step-end infinite;
+  color: var(--unp-primary);
+  font-weight: 700;
+}
+@keyframes caretBlink { 50% { opacity: 0; } }
+
+
+/* ...tus reglas existentes... */
+
+/* Stagger ampliado para cubrir más filas si topN > 5 en el futuro */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: staggerIn .44s ease-out forwards;
+}
+.stagger-item:nth-child(1){animation-delay:.06s}
+.stagger-item:nth-child(2){animation-delay:.12s}
+.stagger-item:nth-child(3){animation-delay:.18s}
+.stagger-item:nth-child(4){animation-delay:.24s}
+.stagger-item:nth-child(5){animation-delay:.30s}
+.stagger-item:nth-child(6){animation-delay:.36s}
+.stagger-item:nth-child(7){animation-delay:.42s}
+.stagger-item:nth-child(8){animation-delay:.48s}
+.stagger-item:nth-child(9){animation-delay:.54s}
+.stagger-item:nth-child(10){animation-delay:.60s}
+@keyframes staggerIn { to { opacity: 1; transform: translateY(0); } }
+
+
+/* Margen de anclaje para scroll a secciones */
+.scroll-target { scroll-margin-top: 16px; }
+
+.reveal-soft {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: revealSoft .35s ease-out forwards;
+}
+.reveal-soft.delay-2 { animation-delay: .18s; }
+@keyframes revealSoft { to { opacity: 1; transform: translateY(0); } }
+
+

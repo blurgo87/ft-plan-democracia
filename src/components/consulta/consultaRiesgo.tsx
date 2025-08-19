@@ -72,10 +72,10 @@ export default function ConsultaRiesgo() {
       <section className="w-100 d-flex justify-content-center mt-4">
         <div
           className="card shadow-sm p-4 w-100"
-          style={{ maxWidth: 950 }} 
+          style={{ maxWidth: 900 }}
         >
           <form onSubmit={onSubmit} noValidate>
-            <div className="mb-3 form-control-lg">
+            <div className="mb-3">
               <NameInput
                 id="nombreApellidos"
                 label="Nombre y Apellidos"
@@ -83,22 +83,26 @@ export default function ConsultaRiesgo() {
                 onChange={setNombre}
                 placeholder="Ejemplo: JUAN PÉREZ"
                 required
-                minLength={4}
+                minLength={3}
                 rightAddon={
                   <button
                     type="submit"
-                    className="btn btn-dark px-4 btn-lg" // botón más grande
+                    className="btn btn-unp btn-lg px-4"
                     disabled={!isValid || loading}
                     aria-label="Enviar consulta"
+                    aria-live="polite"
                   >
                     {loading ? (
-                      <span
-                        className="spinner-border spinner-border-sm text-light"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
+                      <>
+                        <span
+                          className="spinner-border spinner-border-sm"
+                          role="status"
+                          aria-hidden="true"
+                        ></span>
+                        <span className="visually-hidden">&lt;think&gt; procesando consulta…</span>
+                      </>
                     ) : (
-                      <span aria-hidden="true">↑</span>
+                      <span aria-hidden="true" className="fw-bold fs-4">↑</span>
                     )}
                   </button>
                 }

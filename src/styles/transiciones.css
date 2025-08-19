@@ -1,0 +1,38 @@
+/* ...tus reglas existentes... */
+
+.stagger-item {
+  opacity: 0;
+  transform: translateY(8px);
+  animation: staggerIn .44s ease-out forwards;
+}
+.stagger-item:nth-child(1){animation-delay:.06s}
+.stagger-item:nth-child(2){animation-delay:.12s}
+.stagger-item:nth-child(3){animation-delay:.18s}
+.stagger-item:nth-child(4){animation-delay:.24s}
+.stagger-item:nth-child(5){animation-delay:.30s}
+.stagger-item:nth-child(6){animation-delay:.36s}
+.stagger-item:nth-child(7){animation-delay:.42s}
+@keyframes staggerIn { to { opacity: 1; transform: translateY(0); } }
+
+/* conservas tus animaciones actuales */
+.resultados-fade-in { animation: fadeInUp 420ms ease-out both; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(6px);} to { opacity: 1; transform: translateY(0);} }
+
+.reveal-slide { animation: revealSlide 560ms cubic-bezier(.2,.7,.2,1) both; }
+@keyframes revealSlide { 0% { opacity: 0; transform: translateY(-8px);} 100% { opacity: 1; transform: translateY(0);} }
+
+.progress-topbar { position: absolute; left: 0; top: 0; height: 3px;
+  background: linear-gradient(90deg, #7bd5fe, #7bd5fe 60%, transparent);
+  animation: slideBar 900ms ease-in-out forwards; }
+@keyframes slideBar { from { width: 0%; } to { width: 100%; } }
+
+.no-anim * { animation: none !important; transition: none !important; }
+
+/* NUEVO: stagger para filas y tarjetas */
+.stagger-item { opacity: 0; transform: translateY(8px); animation: staggerIn .44s ease-out forwards; }
+.stagger-item:nth-child(1){animation-delay:.06s}
+.stagger-item:nth-child(2){animation-delay:.12s}
+.stagger-item:nth-child(3){animation-delay:.18s}
+.stagger-item:nth-child(4){animation-delay:.24s}
+.stagger-item:nth-child(5){animation-delay:.30s}
+@keyframes staggerIn { to { opacity: 1; transform: translateY(0); } }

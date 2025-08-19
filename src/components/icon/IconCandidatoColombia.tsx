@@ -118,7 +118,7 @@ export default function IconCandidatoColombia({
                 <g transform={`translate(92,18) scale(${flagScale})`} filter={shadow ? `url(#${filterId})` : undefined}>
                     <line
                         x1="0" y1="0" x2="0" y2="44"
-                        stroke={stroke === 'transparent' ? '#4A646C' : stroke}
+                        stroke={stroke === 'transparent' ? '#7bd5fe' : stroke}
                         strokeWidth={Math.max(1.5, strokeWidth)}
                         strokeLinecap="round"
                     />

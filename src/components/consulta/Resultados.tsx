@@ -1,247 +1,253 @@
-import { useState } from 'react';
-import { Subtitulo } from 'react-ecosistema-unp/ui';
-import type { RiskResponse } from '../../types/risk';
+import { useEffect, useRef, useState } from "react";
+import { Subtitulo } from "react-ecosistema-unp/ui";
+import type { RiskResponse } from "../../types/risk";
+import ScorePieChart from "./ScorePastel";
+import ScoreProgress from "./ScoreProgress";
+import MarkdownTypeReveal from "./MarkdownTypeReveal";
+import TarjetaCard from "./TarjetaCard";
+import "../../styles/transiciones.css";
 
 type NormalizedSentence = { text: string; score: number };
 type Props = { data: RiskResponse | null };
 
-
-function ScoreCard({ label, value }: { label: string; value: number | undefined }) {
-    const v = Number(value ?? 0);
-    return (
-        <div className="col-12 col-md-4 mb-3">
-            <div className="border rounded-3 p-3 h-100 bg-white">
-                <div className="text-muted small">{label}</div>
-                <div className="fs-4 fw-semibold">{v.toFixed(2)}</div>
-            </div>
-        </div>
-    );
-}
-
+// ==== Helpers ====
 function normalizeOraciones(raw: unknown): NormalizedSentence[] {
-    if (!Array.isArray(raw)) return [];
-    return raw.map((item): NormalizedSentence => {
-        if (Array.isArray(item)) {
-            const texto = typeof item[0] === 'string' ? item[0] : String(item[0] ?? '');
-            const score = Number(item[1] ?? 0);
-            return { text: texto, score };
-        }
-        if (item && typeof item === 'object') {
-            const anyItem = item as { text?: unknown; score?: unknown };
-            const texto = typeof anyItem.text === 'string' ? anyItem.text : String(anyItem.text ?? '');
-            const score = Number(anyItem.score ?? 0);
-            return { text: texto, score };
-        }
-        return { text: String(item ?? ''), score: 0 };
-    });
+  if (!Array.isArray(raw)) return [];
+  return raw.map((item): NormalizedSentence => {
+    if (Array.isArray(item)) {
+      return { text: String(item[0] ?? ""), score: Number(item[1] ?? 0) };
+    }
+    if (item && typeof item === "object") {
+      const anyItem = item as { text?: unknown; score?: unknown };
+      return {
+        text: String(anyItem.text ?? ""),
+        score: Number(anyItem.score ?? 0),
+      };
+    }
+    return { text: String(item ?? ""), score: 0 };
+  });
 }
 
-/** Tarjeta amplia para una categoría de enlaces */
-function LinkCard({ kind, title, icon, items }: { kind: 'web' | 'social' | 'gov' | 'media'; title: string; icon: string; items: string[] }) {
-    const [open, setOpen] = useState<boolean>(false);
-    const [showAll, setShowAll] = useState<boolean>(false);
-
-    const visible = showAll ? items : items.slice(0, 8);
-
-    return (
-        <div className="col-12 col-lg-6">
-            <div className="card shadow-sm border-0 h-100">
-                <div className="card-header bg-white border-0 d-flex align-items-center justify-content-between py-3">
-                    <div className="d-flex align-items-center gap-2">
-                        <span className="fs-4">{icon}</span>
-                        <div>
-                            <div className="fw-semibold">{title}</div>
-                            <div className="small text-muted text-uppercase">{kind}</div>
-                        </div>
-                    </div>
-                    <div className="d-flex align-items-center gap-2">
-                        <span className="badge text-bg-secondary">{items.length}</span>
-                        <button
-                            type="button"
-                            className="btn btn-sm btn-outline-primary"
-                            aria-expanded={open ? 'true' : 'false'}
-                            aria-controls={`links-${kind}`}
-                            onClick={() => setOpen(v => !v)}
-                        >
-                            {open ? 'Ocultar' : 'Mostrar'}
-                        </button>
-                    </div>
-                </div>
-
-                {open && (
-                    <div id={`links-${kind}`} className="card-body pt-0">
-                        <ul className="list-group list-group-flush">
-                            {visible.map((u, idx) => (
-                                <li className="list-group-item bg-white d-flex justify-content-between align-items-start" key={idx}>
-                                    <a className="link-underline-opacity-0 link-secondary text-break" href={u} target="_blank" rel="noreferrer">
-                                        {u}
-                                    </a>
-                                    <span className="ms-2 small text-muted">↗</span>
-                                </li>
-                            ))}
-                        </ul>
-
-                        {items.length > 8 && (
-                            <div className="d-flex justify-content-end mt-3">
-                                <button
-                                    type="button"
-                                    className="btn btn-outline-primary btn-sm"
-                                    onClick={() => setShowAll(v => !v)}
-                                >
-                                    {showAll ? 'Ver menos' : `Ver todo (${items.length})`}
-                                </button>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </div>
-        </div>
-    );
+function stripThinkBlocks(md: string): string {
+  return md.replace(/<think>[\s\S]*?<\/think>/gi, "");
 }
 
-
+// ==== Componente principal ====
 export default function Resultados({ data }: Props) {
-    if (!data) return null;
+  const [phase, setPhase] = useState(0);
+  const [topN, setTopN] = useState(3);
+  const [done, setDone] = useState(false);
 
-    const [showInforme, setShowInforme] = useState(false);
-    const [topN, setTopN] = useState<number>(3);
+  // refs de scroll
+  const headerRef = useRef<HTMLElement | null>(null);
+  const scoresRef = useRef<HTMLDivElement | null>(null);
+  const informeRef = useRef<HTMLDivElement | null>(null);
+  const tablaRef = useRef<HTMLDivElement | null>(null);
+  const enlacesRef = useRef<HTMLDivElement | null>(null);
+  const endRef = useRef<HTMLDivElement | null>(null);
 
-    const scores = data.nivel_riesgo?.score_acumulado;
-    const todas = normalizeOraciones(data.nivel_riesgo?.oraciones_riesgo);
-    const oraciones = todas.slice(0, topN);
-    const enlaces = (data as any).enlaces;
+  const hasData = !!data;
 
-    // Informe siempre en castellano: cortar cualquier bloque previo y dejar desde "# Informe Detallado"
-    const rawInforme = (data as any).informe_publico ?? (data as any).informe;
-    let informeES = '';
-    if (typeof rawInforme === 'string') {
-        const idx = rawInforme.indexOf('# Informe Detallado');
-        informeES = idx >= 0 ? rawInforme.slice(idx).trim() : rawInforme.trim();
+  // ==== Avance de fases (monótono) ====
+  const setPhaseForward = (next: number) =>
+    setPhase((prev) => (next > prev ? next : prev));
+
+  useEffect(() => {
+    if (!hasData) return;
+    setPhase(0);
+    setDone(false);
+
+    const timers = [
+      window.setTimeout(() => setPhaseForward(1), 250),
+      window.setTimeout(() => setPhaseForward(2), 500),
+      window.setTimeout(() => setPhaseForward(3), 800),
+    ];
+    return () => timers.forEach(clearTimeout);
+  }, [hasData]);
+
+  // ==== Datos derivados ====
+  const scores = hasData ? data!.nivel_riesgo?.score_acumulado : undefined;
+  const todas = hasData ? normalizeOraciones(data!.nivel_riesgo?.oraciones_riesgo) : [];
+
+  const enlacesRaw = hasData ? (data as any).enlaces ?? {} : {};
+  const enlaces = {
+    web: Array.isArray(enlacesRaw.web) ? enlacesRaw.web : [],
+    social: Array.isArray(enlacesRaw.social) ? enlacesRaw.social : [],
+    gov: Array.isArray(enlacesRaw.gov) ? enlacesRaw.gov : [],
+    media: Array.isArray(enlacesRaw.media) ? enlacesRaw.media : [],
+  };
+  const hasLinks =
+    enlaces.web.length + enlaces.social.length + enlaces.gov.length + enlaces.media.length > 0;
+
+  const rawInforme = hasData
+    ? (data as any).informe_publico ?? (data as any).informe
+    : "";
+  const informe =
+    typeof rawInforme === "string"
+      ? stripThinkBlocks(
+          rawInforme.slice(rawInforme.indexOf("# Informe Detallado")).trim() ||
+            rawInforme.trim()
+        )
+      : "";
+
+  // ==== Avance automático ====
+  useEffect(() => {
+    if (!hasData) return;
+
+    // de informe a tabla
+    if (phase === 3 && informe) {
+      // typing done avanza a 4
     }
 
+    // de tabla a enlaces
+    if (phase === 4) {
+      const t = window.setTimeout(() => setPhaseForward(hasLinks ? 5 : 6), 1200);
+      return () => clearTimeout(t);
+    }
 
+    // al mostrar enlaces o terminar → marcar done + scroll al final
+    if (phase === 5 || phase === 6) {
+      const t = window.setTimeout(() => {
+        setDone(true);
+        endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+      }, 800);
+      return () => clearTimeout(t);
+    }
+  }, [phase, hasData, hasLinks, informe]);
 
-    return (
-        <section className="mt-4">
-            <header className="mb-3">
-                <Subtitulo subtitle="Resultados del análisis" />
-            </header>
+  // ==== Scroll automático al entrar a cada bloque ====
+  useEffect(() => {
+    const map = [
+      null,
+      headerRef.current,
+      scoresRef.current,
+      informeRef.current,
+      tablaRef.current,
+      enlacesRef.current,
+    ] as const;
+    const target = map[phase];
+    if (target) target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [phase]);
 
-            {scores && (
-                <div className="row g-3">
-                    <ScoreCard label="Riesgo" value={scores.Riesgo as number} />
-                    <ScoreCard label="Neutral" value={scores.Neutral as number} />
-                    <ScoreCard label="Irrelevante" value={scores.Irrelevante as number} />
-                </div>
-            )}
+  // ==== UI ====
+  const mdAutoScroll = phase === 3 && !done;
+  const rootClass = `mt-4 position-relative ${done ? "no-anim" : ""}`;
 
-            {oraciones.length > 0 && (
-                <div className="mt-4">
-                    <div className="d-flex align-items-center justify-content-between mb-2">
-                        <h6 className="fw-semibold mb-0">Antecedentes de riesgo</h6>
-                        <div className="d-flex align-items-center gap-2">
-                            <label htmlFor="topN" className="small text-muted">Mostrar</label>
-                            <select
-                                id="topN"
-                                className="form-select form-select-sm"
-                                style={{ width: 100 }}
-                                value={topN}
-                                onChange={(e) => setTopN(Number(e.target.value))}
-                            >
-                                <option value={3}>3</option>
-                                <option value={5}>5</option>
-                                <option value={10}>10</option>
-                            </select>
-                        </div>
+  return (
+    <section className={rootClass}>
+      {/* Header */}
+      {hasData && phase >= 1 && (
+        <header ref={headerRef} className={`mb-3 ${done ? "" : "reveal-slide"}`}>
+          <Subtitulo subtitle="Resultados del análisis" />
+        </header>
+      )}
 
-                    </div>
+      {/* Scores */}
+      {hasData && phase >= 2 && scores && (
+        <div ref={scoresRef} className={`row g-3 ${done ? "" : "reveal-slide delay-1"}`}>
+          <ScorePieChart scores={scores} />
+        </div>
+      )}
 
-                    <div className="table-responsive">
-                        <table className="table table-sm table-striped table-hover align-middle mb-0">
-                            <thead className="table-light position-sticky top-0" style={{ zIndex: 1 }}>
-                                <tr>
-                                    <th className="text-center" style={{ width: '3.5rem' }}>#</th>
-                                    <th style={{ width: '75%' }}>Antecedentes</th>
-                                    <th className="text-end" style={{ width: '21%' }}>Puntaje</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {oraciones.map((o, i) => {
-                                    const pct = Math.max(0, Math.min(100, Number(o.score ?? 0) * 100));
-                                    return (
-                                        <tr key={i}>
-                                            <td className="text-center text-muted">{i + 1}</td>
-                                            <td style={{ textAlign: 'justify' }}>
-                                                <div className="text-wrap lh-base">{o.text}</div>
-                                            </td>
-                                            <td className="text-end">
-                                                <div className="d-flex flex-column align-items-center">
-                                                    <span className="fw-semibold mb-1">
-                                                        {pct.toFixed(1)}%
-                                                    </span>
-                                                    <div className="progress w-100" style={{ height: 6 }}>
-                                                        <div
-                                                            className="progress-bar"
-                                                            role="progressbar"
-                                                            style={{ width: `${pct}%` }}
-                                                            aria-valuenow={pct}
-                                                            aria-valuemin={0}
-                                                            aria-valuemax={100}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </td>
+      {/* Informe */}
+      {hasData && phase >= 3 && informe && (
+        <div ref={informeRef} className={`${done ? "" : "reveal-slide delay-2"} mt-4`}>
+          <div
+            id="informe-detallado"
+            className="border rounded-3 p-3 bg-white"
+            style={{ borderColor: "#7bd5fe" }}
+          >
+            <MarkdownTypeReveal
+              content={informe}
+              start={!done}
+              speedChar={16}
+              pauseNewline={260}
+              pauseSentenceEnd={140}
+              forceDone={done}
+              onDone={() => setPhaseForward(4)}
+              autoScroll={mdAutoScroll}
+              smoothScroll
+            />
+          </div>
+        </div>
+      )}
 
-                                        </tr>
-                                    );
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            )}
+      {/* Tabla Top-N */}
+      {hasData && phase >= 4 && todas.length > 0 && (
+        <div ref={tablaRef} className={`${done ? "" : "reveal-slide delay-3"} mt-4`}>
+          <div className="d-flex align-items-center justify-content-between mb-2">
+            <Subtitulo subtitle="Antecedentes de riesgo" />
+            <select
+              id="topN"
+              className="form-select form-select-sm"
+              style={{ width: 100, borderColor: "#7bd5fe" }}
+              value={topN}
+              onChange={(e) => setTopN(Number(e.target.value))}
+            >
+              <option value={3}>3</option>
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+            </select>
+          </div>
 
-            {informeES && (
-                <div className="mt-4">
-                    <div className="d-flex align-items-center justify-content-between mb-2">
-                        <h6 className="fw-semibold mb-0">Informe</h6>
-                        <button
-                            type="button"
-                            className="btn btn-sm btn-outline-primary"
-                            onClick={() => setShowInforme(v => !v)}
-                            aria-expanded={showInforme ? 'true' : 'false'}
-                            aria-controls="informe-detallado"
-                        >
-                            {showInforme ? 'Ocultar' : 'Mostrar'} informe
-                        </button>
-                    </div>
-                    {showInforme && (
-                        <div id="informe-detallado" className="border rounded-3 p-3 bg-white">
-                            <pre className="mb-0" style={{ whiteSpace: 'pre-wrap', textAlign: 'justify' }}>{informeES}</pre>
-                        </div>
-                    )}
-                </div>
-            )}
+          <div className="table-responsive">
+            <table className="table table-sm table-striped table-hover align-middle mb-0">
+              <thead className="table-light position-sticky top-0" style={{ zIndex: 1 }}>
+                <tr>
+                  <th className="text-center" style={{ width: "3.5rem" }}>
+                    #
+                  </th>
+                  <th style={{ width: "70%" }}>Antecedentes</th>
+                  <th className="text-end" style={{ width: "25%" }}>
+                    Puntaje
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {todas.slice(0, topN).map((o, i) => {
+                  const pct = Math.max(0, Math.min(100, Number(o.score ?? 0) * 100));
+                  return (
+                    <tr key={`${i}-${pct}`} className={done ? "" : "stagger-item"}>
+                      <td className="text-center text-muted">{i + 1}</td>
+                      <td style={{ textAlign: "justify" }}>
+                        <div className="text-wrap lh-base">{o.text}</div>
+                      </td>
+                      <td className="text-end">
+                        <ScoreProgress
+                          pct={pct}
+                          label="Puntaje"
+                          fillRemainder
+                          primaryColor="#7bd5fe"
+                          remainderColor="#e0e0e0"
+                          height={8}
+                          width="200px"
+                          maxWidth="90%"
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
 
-            {enlaces && (
-                <div className="mt-4">
-                    <h6 className="fw-semibold mb-3">Enlaces</h6>
-                    <div className="row g-3">
-                        {enlaces.web?.length ? (
-                            <LinkCard kind="web" title="Fuentes Web" icon="🌐" items={enlaces.web} />
-                        ) : null}
-                        {enlaces.social?.length ? (
-                            <LinkCard kind="social" title="Redes Sociales" icon="💬" items={enlaces.social} />
-                        ) : null}
-                        {enlaces.gov?.length ? (
-                            <LinkCard kind="gov" title="Gobierno" icon="🏛️" items={enlaces.gov} />
-                        ) : null}
-                        {enlaces.media?.length ? (
-                            <LinkCard kind="media" title="Medios" icon="📰" items={enlaces.media} />
-                        ) : null}
-                    </div>
-                </div>
-            )}
-        </section>
-    );
+      {/* Enlaces */}
+      {hasData && phase >= 5 && hasLinks && (
+        <div ref={enlacesRef} className={`${done ? "" : "reveal-soft delay-2"} mt-4`}>
+          <Subtitulo subtitle="Enlaces" />
+          <div className="row g-2">
+            <TarjetaCard kind="web" title="Fuentes Web" icon="🌐" items={enlaces.web} />
+            <TarjetaCard kind="social" title="Redes Sociales" icon="💬" items={enlaces.social} />
+            <TarjetaCard kind="gov" title="Gobierno" icon="🏛️" items={enlaces.gov} />
+            <TarjetaCard kind="media" title="Medios" icon="📰" items={enlaces.media} />
+          </div>
+        </div>
+      )}
+
+      {/* Sentinela final */}
+      <div ref={endRef} className="pt-1" />
+    </section>
+  );
 }

@@ -1,4 +1,5 @@
 import { useId, type ReactNode } from 'react';
+import { Subtitulo } from 'react-ecosistema-unp/ui';
 import IconCandidatoColombia from '../components/icon/IconCandidatoColombia';
 
 export type NameInputProps = {
@@ -32,7 +33,7 @@ export default function NameInput({
   placeholder,
   required,
   minLength = 4,
-  rightAddon
+  rightAddon,
 }: NameInputProps) {
   const generatedId = useId();
   const inputId = id ?? `name-${generatedId}`;
@@ -50,11 +51,19 @@ export default function NameInput({
 
   return (
     <div>
-      <label htmlFor={inputId} className="form-label fw-medium">
-        {label} {required && <span className="text-danger">*</span>}
+      {/* Subtítulo visible con asterisco rojo */}
+      <div className="d-flex align-items-baseline gap-2 mb-1">
+        <Subtitulo subtitle={label} />
+        {required && <span className="text-danger fw-semibold" aria-hidden="true">*</span>}
+      </div>
+
+      {/* Label accesible (no visible) para vincular el input por id */}
+      <label htmlFor={inputId} className="visually-hidden">
+        {label} {required ? '(requerido)' : undefined}
       </label>
+
       <div className="input-group input-group-lg">
-        <IconCandidatoColombia size={45} stroke="#4A646C" className="mx-3" decorative />
+        <IconCandidatoColombia size={45} stroke="#7bd5fe" className="mx-3" decorative />
         <input
           id={inputId}
           type="text"
@@ -77,6 +86,7 @@ export default function NameInput({
         {/* Addon derecho opcional (por ejemplo, botón submit) */}
         {rightAddon}
       </div>
+
       <small id={helpId} className="visually-hidden">
         Solo letras y espacios. Longitud mínima {minLength}.
       </small>
