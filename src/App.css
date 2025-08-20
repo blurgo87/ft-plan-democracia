@@ -12,10 +12,10 @@
   transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #7bd5fe);
+  filter: drop-shadow(0 0 2em #000000);
 }
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #7bd5fe);
+  filter: drop-shadow(0 0 2em #000000);
 }
 
 @keyframes logo-spin {
@@ -70,5 +70,18 @@ body {
     padding: 3rem;
   }
 }
+
+.input-group.rounded-4.border {
+  border: 1px solid #ced4da;   /* borde gris Bootstrap */
+  border-radius: 0.75rem;      /* esquinas redondeadas */
+}
+
+.input-group .form-control,
+.input-group .input-group-text {
+  border: none !important;     /* sin bordes internos */
+  box-shadow: none !important; /* sin sombras */
+}
+
+
 
 

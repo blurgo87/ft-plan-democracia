@@ -21,10 +21,11 @@ export default function ScorePieChart({ scores }: ScorePieChartProps) {
       {
         data: [scores.Riesgo, scores.Neutral, scores.Irrelevante],
         backgroundColor: [
-          '#C0392B', // rojo oscuro para Riesgo
-          '#D4AC0D', // dorado/mustard para Neutral
-          '#1E8449', // verde oscuro para Irrelevante
+          '#FF6B6B', // rojo brillante → Riesgo
+          '#FFD93D', // amarillo brillante → Neutral
+          '#6EE7B7', // verde brillante → Irrelevante
         ],
+
         borderColor: '#fff',
         borderWidth: 1,
         hoverOffset: 4,
@@ -56,7 +57,7 @@ export default function ScorePieChart({ scores }: ScorePieChartProps) {
         color: '#fff',
         font: {
           weight: 'bold' as const,
-          size: 10,
+          size: 15,
         },
         formatter: (value: number) => {
           const pct = (value / total) * 100;

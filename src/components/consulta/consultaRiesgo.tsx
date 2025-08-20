@@ -66,12 +66,15 @@ export default function ConsultaRiesgo() {
   }, [data]);
 
   return (
-    <main className="container d-flex flex-column align-items-center min-vh-100 py-4">
-      <HeaderIdentidad titulo="Consulta de Riesgo" />
+    <main className="container d-flex flex-column align-items-center min-vh-100 ">
+      {/* Header con mismo ancho que el card */}
+      <div className="w-100" style={{ maxWidth: 900 }}>
+        <HeaderIdentidad titulo="Consulta de Riesgo" />
+      </div>
 
       <section className="w-100 d-flex justify-content-center mt-4">
         <div
-          className="card shadow-sm p-4 w-100"
+          className="card shadow-sm p-3 w-100"
           style={{ maxWidth: 900 }}
         >
           <form onSubmit={onSubmit} noValidate>
@@ -85,27 +88,30 @@ export default function ConsultaRiesgo() {
                 required
                 minLength={3}
                 rightAddon={
-                  <button
-                    type="submit"
-                    className="btn btn-unp btn-lg px-4"
-                    disabled={!isValid || loading}
-                    aria-label="Enviar consulta"
-                    aria-live="polite"
+                  <div
+                    className="d-flex align-items-center justify-content-center border rounded-4 bg-white shadow-sm"
+                    style={{ height: 56, width: 56 }}
                   >
-                    {loading ? (
-                      <>
-                        <span
-                          className="spinner-border spinner-border-sm"
-                          role="status"
-                          aria-hidden="true"
-                        ></span>
-                        <span className="visually-hidden">&lt;think&gt; procesando consulta…</span>
-                      </>
-                    ) : (
-                      <span aria-hidden="true" className="fw-bold fs-4">↑</span>
-                    )}
-                  </button>
+                    <button
+                      type="submit"
+                      className="btn btn-unp d-flex align-items-center justify-content-center fw-bold p-0"
+                      disabled={!isValid || loading}
+                      aria-label="Enviar consulta"
+                      aria-live="polite"
+                      style={{ height: '100%', width: '100%' }}
+                    >
+                      {loading ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                          <span className="visually-hidden">procesando consulta…</span>
+                        </>
+                      ) : (
+                        <span aria-hidden="true" className="fs-4">↑</span>
+                      )}
+                    </button>
+                  </div>
                 }
+
               />
             </div>
 
@@ -117,7 +123,7 @@ export default function ConsultaRiesgo() {
           </form>
         </div>
       </section>
-
     </main>
+
   );
 }

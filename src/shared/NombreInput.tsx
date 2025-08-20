@@ -52,23 +52,30 @@ export default function NameInput({
   return (
     <div>
       {/* Subtítulo visible con asterisco rojo */}
-      <div className="d-flex align-items-baseline gap-2 mb-1">
+      {/* Label arriba */}
+      <div className="d-flex align-items-center gap-2 mb-2">
         <Subtitulo subtitle={label} />
-        {required && <span className="text-danger fw-semibold" aria-hidden="true">*</span>}
+        {required && (
+          <span className="text-danger fw-semibold" aria-hidden="true">*</span>
+        )}
       </div>
 
-      {/* Label accesible (no visible) para vincular el input por id */}
-      <label htmlFor={inputId} className="visually-hidden">
-        {label} {required ? '(requerido)' : undefined}
-      </label>
+      {/* Fila: icono, input y botón separados */}
+      <div className="d-flex align-items-center gap-3" style={{ height: 52 }}>
+        {/* ICONO */}
+        <div
+          className="d-flex align-items-center justify-content-center border rounded-4 bg-white"
+          style={{ height: 52, width: 52 }}
+        >
+          <IconCandidatoColombia decorative />
+        </div>
 
-      <div className="input-group input-group-lg">
-        <IconCandidatoColombia size={45} stroke="#7bd5fe" className="mx-3" decorative />
+        {/* INPUT */}
         <input
           id={inputId}
           type="text"
-          className="form-control"
-          inputMode="text"
+          className="form-control border rounded-4 h-100"
+          style={{ flex: 1 }}
           aria-describedby={helpId}
           aria-required={required ? 'true' : undefined}
           aria-invalid={value.trim().length < minLength}
@@ -83,9 +90,11 @@ export default function NameInput({
           autoComplete="name"
           spellCheck={false}
         />
-        {/* Addon derecho opcional (por ejemplo, botón submit) */}
+
+        {/* BOTÓN (rightAddon) */}
         {rightAddon}
       </div>
+
 
       <small id={helpId} className="visually-hidden">
         Solo letras y espacios. Longitud mínima {minLength}.
