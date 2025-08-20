@@ -15,6 +15,8 @@ type MarkdownTypeRevealProps = {
   scrollContainerRef?: React.RefObject<HTMLElement>;
   scrollMarginBottom?: number;
   smoothScroll?: boolean;
+  hideHeadingsOnDone?: boolean; 
+
 };
 
 export default function MarkdownTypeReveal({
@@ -29,6 +31,8 @@ export default function MarkdownTypeReveal({
   scrollContainerRef,
   scrollMarginBottom = 32,
   smoothScroll = true,
+    hideHeadingsOnDone = false,  
+
 }: MarkdownTypeRevealProps) {
   const [shown, setShown] = useState<string>('');
   const iRef = useRef<number>(0);
@@ -36,42 +40,51 @@ export default function MarkdownTypeReveal({
   const runningRef = useRef<boolean>(false);
   const endRef = useRef<HTMLSpanElement | null>(null);
 
-  useEffect(() => {
-    iRef.current = 0;
-    setShown('');
-    stopTimer();
-    if (forceDone) {
-      setShown(content);
+// dentro de useEffect(...) en MarkdownTypeReveal.tsx
+useEffect(() => {
+  stopTimer();
+
+  if (forceDone) {
+    setShown(content);
+    onDone?.();
+    return;
+  }
+
+  // si no debe empezar, no borres lo ya escrito
+  if (!start) return;
+
+  // iniciar escritura
+  iRef.current = 0;
+  setShown('');
+  runningRef.current = true;
+
+  const isSentenceEnd = (ch: string) => /[.!?…。]/.test(ch);
+  const step = () => {
+    if (!runningRef.current) return;
+
+    const i = iRef.current!;
+    if (i >= content.length) {
+      runningRef.current = false;
       onDone?.();
       return;
     }
-    if (!start) return;
 
-    runningRef.current = true;
-    const step = () => {
-      if (!runningRef.current) return;
+    const next = content.slice(0, i + 1);
+    setShown(next);
+    iRef.current = i + 1;
 
-      if (iRef.current >= content.length) {
-        stopTimer();
-        onDone?.();
-        return;
-      }
+    const ch = content[i];
+    let delay = speedChar;
+    if (ch === '\n') delay = pauseNewline ?? speedChar;
+    else if (isSentenceEnd(ch)) delay = pauseSentenceEnd ?? speedChar;
 
-      const nextI = iRef.current + 1;
-      setShown(content.slice(0, nextI));
-      iRef.current = nextI;
+    timerRef.current = window.setTimeout(step, delay);
+  };
 
-      const ch = content[nextI - 1];
-      let delay = speedChar;
-      if (ch === '\n') delay += pauseNewline;
-      if (/[\.!\?;:]/.test(ch)) delay += pauseSentenceEnd;
+  timerRef.current = window.setTimeout(step, speedChar);
+  return () => stopTimer();
+}, [content, start, forceDone, speedChar, pauseNewline, pauseSentenceEnd, onDone]);
 
-      timerRef.current = window.setTimeout(step, delay);
-    };
-
-    timerRef.current = window.setTimeout(step, speedChar);
-    return () => stopTimer();
-  }, [content, start, forceDone, speedChar, pauseNewline, pauseSentenceEnd, onDone]);
 
   function stopTimer() {
     runningRef.current = false;
@@ -121,8 +134,12 @@ export default function MarkdownTypeReveal({
 
   return (
     <div aria-live="polite">
-      <MarkdownViewer content={finalText} />
+            <MarkdownViewer
+        content={finalText}
+        hideHeadings={forceDone && hideHeadingsOnDone}  // NUEVO
+      />
       <span ref={endRef} aria-hidden="true" />
+
     </div>
   );
 }
